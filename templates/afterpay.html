@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block title %} Ngo Form {% endblock %}
+
+{% block body %}
+<style>
+    body {
+        background-color: #ae3535;
+        color: aliceblue;
+    }
+
+    label {
+        margin-bottom: 6px;
+    }
+
+    .container {
+        margin-bottom: 12rem;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 7px rgba(0, 0, 0, 0.7);
+        transition: 0.3s;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        margin: 0 auto 0 auto;
+        padding: 0 1.5rem 2rem;
+        /* 5px rounded corners */
+    }
+    .card-header:first-child {
+        text-shadow: 1px 1px 1px #291e1e, 1px 1px 10px #826c6c;
+    }
+
+    .mt-2 {
+        margin-top: 12.5rem !important;
+
+    }
+
+    .row {
+        justify-content: center;
+    }
+
+    .row>* {
+        margin-bottom: 20px;
+
+    }
+
+    .form-control {
+        font-size: 15px;
+    }
+
+    @media (max-width: 750px) {
+
+        .row>* {
+            width: 100%;
+        }
+    }
+
+    @media (min-width: 1400px) {
+
+        .container,
+        .container-lg,
+        .container-md,
+        .container-sm,
+        .container-xl,
+        .container-xxl {
+            max-width: 1000px;
+        }
+
+
+    }
+</style>
+
+<div class="mt-2 col-md-12">
+    <div class="container ">
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        <div class="card  card-dark bg-dark">
+            <div class="card-header">
+                After Payment Form <i class="fas fa-clipboard-check"></i>
+            </div>
+            <div class="card-body">
+                <form class="was-validated" action="" method="post" enctype="multipart/form-data" >
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="column">
+                            <label for="name" class="form-label">User Name</label>
+                            <input type="text" class="form-control" id="inputname" name="uname"
+                                placeholder="Enter your full name " required>
+                            <div class="invalid-feedback">
+                                Please enter your User-Name..
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="cloumn">
+                                <label for="myfile">Upload Screen Shot Of Payment</label>
+                                <input type="file" class="form-control" aria-label="file example" name="ufile" required>
+                                <div class="invalid-feedback">Only images file type are supported.</div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <button type="submit" class="btn btn-primary">submit</button>
+                            </div>
+                        </div>
+
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $(function () {
+
+        setTimeout(function () {
+            if ($(".alert").is(":visible")) {
+                //you may add animate.css class for fancy fadeout
+                $(".alert").fadeOut("fast");
+            }
+
+        }, 3000)
+
+    });
+</script>
+
+{% endblock %}

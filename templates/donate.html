@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block title %} signup {% endblock %}
+
+{% block body %}
+<style>
+     body {
+        background-color: #ae3535;
+        color: aliceblue;
+    }
+
+    .text-center {
+        text-align: center !important;
+        margin-top: 20px;
+    }
+
+    .card-header:first-child {
+        color: darkorange;
+    }
+
+    .card-title {
+        margin-bottom: 1.5rem;
+        color: brown;
+    }
+
+    p {
+        color: bisque;
+    }
+    p.bd{
+        text-align: initial;
+        font-weight: 300;
+    }
+   
+
+    .text-muted {
+        color: #ffffff !important;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 7px rgba(0, 0, 0, 0.7);
+        transition: 0.3s;
+        border-radius: 20px;
+        /* 5px rounded corners */
+    }
+    .mt-2 {
+        margin-top: 12.5rem!important;
+        margin-bottom: 12.5rem;
+    }
+    
+
+    @media (min-width: 1400px) {
+
+        .container,
+        .container-lg,
+        .container-md,
+        .container-sm,
+        .container-xl,
+        .container-xxl {
+            max-width: 1000px;
+        }
+    }
+</style>
+<div class="mt-2 col-md-12">
+    <div class="container ">
+        <h1>Donation's List</h1>
+        <h3>After donating please <a href="/afterpay"><strong style="color:#1f2894;"><u>click here</u><strong></a></h3>
+        {% if messages %}
+        {% for message in messages %}
+        <div {% if message.tags %} class="alert alert-{{message.tags}} alert-dismissible fade show" {% endif %}>
+            <strong>{{message}} {{full_name}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+    
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    
+        <div class="card text-center card-dark bg-dark">
+            <div class="card-header">
+                {{form.0.name}}<br>
+                {{form.0.email}}
+            </div>
+            <div class="card-body">
+                <h3 class="card-title"><b>Amount required: {{form.0.amount}}</b></h3>
+                <p class="bd">{{form.0.details}}</p>
+                <p class="bd"><strong  style="color:darkorange;">Bank Details:</strong></p>
+                <p class="bd">{{form.0.bank_details}}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div class="card-footer text-muted">
+                {{form.0.pub_date}}
+            </div>
+        </div>
+        {% for i in form|slice:"1:" %}
+        <div class="card text-center card-dark bg-dark">
+            <div class="card-header">
+                {{i.name}}<br>
+                {{i.email}}
+            </div>
+            <div class="card-body">
+                <h3 class="card-title"><b>Amount required: {{i.amount}}</b></h3>
+                <p class="bd">{{i.details}}</p>
+                <p class="bd"><strong  style="color:darkorange;">Bank Details:</strong></p>
+                <p class="bd">{{i.bank_details}}</p>
+                <p class="bd">UPI:{{i.upi}}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div class="card-footer text-muted">
+                {{i.pub_date}}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $(function () {
+
+        setTimeout(function () {
+            if ($(".alert").is(":visible")) {
+                //you may add animate.css class for fancy fadeout
+                $(".alert").fadeOut("fast");
+            }
+
+        }, 3000)
+
+    });
+</script>
+
+
+{% endblock %}

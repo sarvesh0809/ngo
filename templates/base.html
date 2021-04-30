@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+    <!-- Glidejs -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+    <nav class="nav">
+        <div class="wrapper container">
+            <div class="logo"><a href="">NGO</a></div>
+            <ul class="nav-list">
+                <div class="top">
+                    <label for="" class="btn close-btn"><i class="fas fa-times"></i></label>
+                </div>
+                <li><a href="/">Home</a></li>
+                <li><a href="/donate">Donate <i class="fas fa-hand-holding-medical"></i></a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+                {% else %}
+                <li><a href="/ngoform">Apply For Fundraising</a></li>
+                <li><a href="/signup">SignUp</a></li>
+                <li>
+                    <a href="" class="desktop-item">Login <span><i class="fas fa-chevron-down"></i></span></a>
+                    <input type="checkbox" id="showdrop1" />
+                    <label for="showdrop1" class="mobile-item">Login<span><i
+                                class="fas fa-chevron-down"></i></span></label>
+                    <ul class="drop-menu1">
+                        <li><a href="/login">Goverment Login</a></li>
+                        <li><a href="/login">User Login</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+
+                <li>
+                    <a href="" class="desktop-item">Page <span><i class="fas fa-chevron-down"></i></span></a>
+                    <input type="checkbox" id="showdrop2" />
+                    <label for="showdrop2" class="mobile-item">Page <span><i
+                                class="fas fa-chevron-down"></i></span></label>
+                    <ul class="drop-menu2">
+
+                        <li><a href="/#about-us">About</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="/login">Faq</a></li>
+                        <li><a href="/error">Page 404</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li><a href="/admin">Admin <i class="fas fa-users-cog"></i></a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+                <!-- icons -->
+              
+            </ul>
+            <label for="" class="btn open-btn"><i class="fas fa-bars"></i></label>
+        </div>
+    </nav>
+{% block body %} {% endblock %}
+<footer id="footer" class="section footer">
+    <div class="container">
+        <div class="footer-container">
+            <div class="footer-center">
+                <h3>EXTRAS</h3>
+                <a href="#">Affiliate</a>
+                <a href="#">Specials</a>
+                <a href="/">Site Map</a>
+            </div>
+            <div class="footer-center">
+                <h3>INFORMATION</h3>
+                <a href="/#about-us">About Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="/contact">Contact Us</a>
+                
+            </div>
+            <div class="footer-center">
+                <h3>MY ACCOUNT</h3>
+                <a href="/login">My Account</a>
+                
+            </div>
+            <div class="footer-center">
+                <h3>CONTACT US</h3>
+                <div>
+                    <span>
+                        <i class="fas fa-map-marker-alt"></i>
+                    </span>
+                    Maharashtra, INDIA
+                </div>
+                <div>
+                    <span>
+                        <i class="far fa-envelope"></i>
+                    </span>
+                    salam.sarvesh@gmail.com
+                </div>
+                <div>
+                    <span>
+                        <i class="fas fa-phone"></i>
+                    </span>
+                    +91 7977941354
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    </div>
+</footer>
+
+</body>
+
+
+
+<script>
+    const openNav = document.querySelector(".open-btn");
+    const closeNav = document.querySelector(".close-btn");
+    const menu = document.querySelector(".nav-list");
+
+    const menuLeft = menu.getBoundingClientRect().left;
+    openNav.addEventListener("click", () => {
+        if (menuLeft < 0) {
+            menu.classList.add("show");
+        }
+    });
+
+    closeNav.addEventListener("click", () => {
+        if (menuLeft < 0) {
+            menu.classList.remove("show");
+        }
+    });
+
+    // Fixed Nav
+    const navBar = document.querySelector(".nav");
+    const navHeight = navBar.getBoundingClientRect().height;
+    window.addEventListener("scroll", () => {
+        const scrollHeight = window.pageYOffset;
+        if (scrollHeight > navHeight) {
+            navBar.classList.add("fix-nav");
+        } else {
+            navBar.classList.remove("fix-nav");
+        }
+    });
+
+    // Scroll To
+    const links = [...document.querySelectorAll(".scroll-link")];
+    links.map(link => {
+        if (!link) return;
+        link.addEventListener("click", e => {
+            e.preventDefault();
+
+            const id = e.target.getAttribute("href").slice(1);
+
+            const element = document.getElementById(id);
+            const fixNav = navBar.classList.contains("fix-nav");
+            let position = element.offsetTop - navHeight;
+
+            window.scrollTo({
+                top: position,
+                left: 0,
+            });
+
+            navBar.classList.remove("show");
+            menu.classList.remove("show");
+            document.body.classList.remove("show");
+        });
+    });
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+
+</html>

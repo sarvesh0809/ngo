@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %} Ngo Form {% endblock %}
+
+{% block body %}
+<style>
+    body {
+        background-color: #ae3535;
+        color: aliceblue;
+    }
+
+    label {
+        margin-bottom: 6px;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 7px rgba(0, 0, 0, 0.7);
+        transition: 0.3s;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        margin: 0 auto 0 auto;
+        padding: 0 1.5rem 2rem;
+        /* 5px rounded corners */
+    }
+    .card-header:first-child {
+        text-shadow: 1px 1px 1px #291e1e, 1px 1px 10px #826c6c;
+    }
+
+    .mt-2 {
+        margin-top: 12.5rem !important;
+        margin-bottom: 12.5rem;
+    }
+
+    .row {
+        justify-content: center;
+    }
+
+    .row>* {
+        margin-bottom: 20px;
+        
+    }
+
+    .form-control {
+        font-size: 15px;
+    }
+
+    @media (max-width: 750px) {
+
+        .row>* {
+            width: 100%;
+        }
+    }
+
+    @media (min-width: 1400px) {
+
+        .container,
+        .container-lg,
+        .container-md,
+        .container-sm,
+        .container-xl,
+        .container-xxl {
+            max-width: 1000px;
+        }
+
+
+    }
+
+    a {
+        text-decoration: none;
+        color: #ae3535;
+        transition: all 300ms;
+    }
+
+    a:hover {
+        opacity: .5;
+    }
+</style>
+
+<div class="mt-2 col-md-12">
+    <div class="container ">
+        <div class="card  card-dark bg-dark">
+            <div class="card-header">
+                Login  <i class="fas fa-sign-in-alt"></i>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="" novalidate>
+                    {% csrf_token %}
+                    {% for fm in form %}
+                    <div class="row">
+                        <div class="form-group col-xs-3">
+                            {{fm.label_tag}} {{fm}} <small class="text-warning"> {{fm.errors|striptags}}</small>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                    <div class="row">
+                        <div class="form-group col-xs-3">
+                            <p>Don't have an account.?<a href="/signup"><u>Sign Up</u></a></p>
+                            <input type="submit" value="Login" class="btn btn-primary">
+                            {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                            <p class="alert alert-danger my-3">{{error}}</p>
+                            {%endfor%}
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
